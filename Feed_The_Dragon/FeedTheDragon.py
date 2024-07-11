@@ -31,7 +31,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 #Set fonts
-font = pygame.font.Font('AttackGraffiti.ttf', 32)
+font = pygame.font.Font('Feed_The_Dragon/AttackGraffiti.ttf', 32)
 
 #Set text
 score_text = font.render("Score: " + str(score), True, GREEN, DARKGREEN)
@@ -56,20 +56,20 @@ continue_rect = continue_text.get_rect()
 continue_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 32)
 
 #Set sounds and music
-coin_sound = pygame.mixer.Sound("coin_sound.wav")
-miss_sound = pygame.mixer.Sound("miss_sound.wav")
+coin_sound = pygame.mixer.Sound("Feed_The_Dragon/coin_sound.wav")
+miss_sound = pygame.mixer.Sound("Feed_The_Dragon/miss_sound.wav")
 miss_sound.set_volume(.1)
-pygame.mixer.music.load("ftd_background_music.wav")
+pygame.mixer.music.load("Feed_The_Dragon/ftd_background_music.wav")
 #The main game loop
 pygame.mixer.music.play(-1, 0.0)
 
 #Set images
-player_image = pygame.image.load("dragon_right.png")
+player_image = pygame.image.load("Feed_The_Dragon/dragon_right.png")
 player_rect = player_image.get_rect()
 player_rect.left = 32
 player_rect.centery = WINDOW_HEIGHT//2
 
-coin_image = pygame.image.load("coin.png")
+coin_image = pygame.image.load("Feed_The_Dragon/coin.png")
 coin_rect = coin_image.get_rect()
 coin_rect.x = WINDOW_WIDTH + BUFFER_DISTANCE
 coin_rect.y = random.randint(64, WINDOW_HEIGHT - 32)
