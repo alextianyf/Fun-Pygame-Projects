@@ -1,0 +1,6 @@
+#Set display window
+WINDOW_WIDTH = 1200
+WINDOW_HEIGHT = 700
+
+#Set FPS
+FPS = 60
