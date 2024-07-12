@@ -22,9 +22,6 @@ class Game():
         self.score = 0
         self.round_number = 0
 
-        self.round_time = 0
-        self.frame_count = 0
-
         self.player = player
         self.monster_group = monster_group
 
@@ -49,17 +46,7 @@ class Game():
         self.target_monster_rect.centerx = WINDOW_WIDTH//2
         self.target_monster_rect.top = 30
 
-    def update(self):
-        """Update our game object"""
-        self.frame_count += 1
-        if self.frame_count == FPS:
-            self.round_time += 1
-            self.frame_count = 0
-
-        #Check for collisions
-        self.check_collisions()
-
-    def draw(self):
+    def display_text_line(self):
         """Draw the HUD and other to the display"""
         #Set colors
         WHITE = (255, 255, 255)
@@ -89,10 +76,6 @@ class Game():
         round_rect = round_text.get_rect()
         round_rect.topleft = (5, 65)
 
-        time_text = self.font.render("Round Time: " + str(self.round_time), True, WHITE)
-        time_rect = time_text.get_rect()
-        time_rect.topright = (WINDOW_WIDTH - 10, 5)
-
         warp_text = self.font.render("Warps: " + str(self.player.warps), True, WHITE)
         warp_rect = warp_text.get_rect()
         warp_rect.topright = (WINDOW_WIDTH - 10, 35)
@@ -102,7 +85,6 @@ class Game():
         display_surface.blit(score_text, score_rect)
         display_surface.blit(round_text, round_rect)
         display_surface.blit(lives_text, lives_rect)
-        display_surface.blit(time_text, time_rect)
         display_surface.blit(warp_text, warp_rect)
         display_surface.blit(self.target_monster_image, self.target_monster_rect)
 
@@ -143,12 +125,8 @@ class Game():
 
     def start_new_round(self):
         """Populate board with new monsters"""
-        #Provide a score bonus based on how quickly the round was finished
-        self.score += int(10000*self.round_number/(1 + self.round_time))
 
         #Reset round values
-        self.round_time = 0
-        self.frame_count = 0
         self.round_number += 1
         self.player.warps += 1
 
@@ -258,8 +236,8 @@ while running:
     my_monster_group.draw(display_surface)
 
     #Update and draw the Game
-    my_game.update()
-    my_game.draw()
+    my_game.display_text_line()
+    my_game.check_collisions()
 
     #Update display and tick clock
     pygame.display.update()
