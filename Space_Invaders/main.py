@@ -1,6 +1,6 @@
 import pygame, random
 from player import Player
-from alien import Alien
+from Space_Invaders.alien import Alien
 
 #Initialize pygame
 pygame.init()
