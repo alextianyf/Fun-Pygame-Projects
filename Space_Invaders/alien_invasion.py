@@ -20,7 +20,7 @@ def run_game():
     bullets_group = Group()
     aliens_group = Group()
 
-    gf.create_aliens_group(game_settings, screen, aliens_group)
+    gf.create_aliens_group(game_settings, screen, ship, aliens_group)
 
     # 开始游戏的主循环
     while True:
