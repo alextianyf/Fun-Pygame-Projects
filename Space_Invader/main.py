@@ -1,6 +1,6 @@
 import pygame
-import sys
 from settings import game_settings
+import game_functions
 from ship import Ship
 
 def run_game():
@@ -16,15 +16,8 @@ def run_game():
     game_running = True
     while game_running:
         # 监视键盘和鼠标的事件
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        # 每次循环时，都重新绘制屏幕颜色
-        screen.fill(game_settings.bg_color)
-        ship.display_ship()
-
-        # 让最近绘制的屏幕可见
-        pygame.display.flip()
+        game_functions.check_mouse_key_events()
+        # 更新屏幕
+        game_functions.update_screen(screen, game_settings, ship)
 
 run_game()
