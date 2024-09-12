@@ -10,13 +10,13 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")# 设置游戏的名称
 
     # 创建一个飞船的object
-    ship = Ship(screen)
+    ship = Ship(screen, game_settings)
 
     # 开始游戏的主循环
     game_running = True
     while game_running:
         # 监视键盘和鼠标的事件
-        game_functions.check_mouse_key_events()
+        game_functions.check_mouse_key_events(ship)
         # 更新屏幕
         game_functions.update_screen(screen, game_settings, ship)
 
