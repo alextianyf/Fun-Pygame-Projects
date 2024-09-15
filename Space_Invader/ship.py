@@ -8,12 +8,23 @@ class Ship:
     """
     def __init__(self, display_screen, game_settings):
         self.screen = display_screen
+        self.game_settings = game_settings
 
         # 加载飞船的图像并且设定显示位置
         self.image = pygame.image.load("./Space_Invader/assets/images/player_ship.png")
         self.rect = self.image.get_rect() # 外接矩形
-        self.rect.centerx = game_settings.WINDOW_WIDTH//2
-        self.rect.bottom = game_settings.WINDOW_HEIGHT
+        self.rect.centerx = self.game_settings.WINDOW_WIDTH//2
+        self.rect.bottom = self.game_settings.WINDOW_HEIGHT
+
+        # 设置一个移动标志（flag）
+        self.moving_right = False
+        self.moving_left = False
+
+    def move_ship(self):
+        if self.moving_right and self.rect.right < self.game_settings.WINDOW_WIDTH:
+            self.rect.centerx += 1
+        if self.moving_left and self.rect.left > 0:
+            self.rect.centerx -= 1
 
     def display_ship(self):
         self.screen.blit(self.image, self.rect)

@@ -17,6 +17,7 @@ def run_game():
     while game_running:
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(ship)
+        ship.move_ship()
         # 更新屏幕
         game_functions.update_screen(screen, game_settings, ship)
 
