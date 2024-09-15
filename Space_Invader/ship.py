@@ -20,6 +20,8 @@ class Ship:
         self.moving_right = False
         self.moving_left = False
 
+        self.position = float(self.rect.centerx)
+
     def move_ship(self):
         if self.moving_right and self.rect.right < self.game_settings.WINDOW_WIDTH:
             self.rect.centerx += 1
