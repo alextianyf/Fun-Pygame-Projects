@@ -16,4 +16,7 @@ class Settings:
         # 背景颜色的设置
         self.bg_color = (0,0,0)
 
+        # 设置飞船移动速度
+        self.ship_moving_speed = 0.5
+
 game_settings = Settings()

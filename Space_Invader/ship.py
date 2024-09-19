@@ -24,9 +24,11 @@ class Ship:
 
     def move_ship(self):
         if self.moving_right and self.rect.right < self.game_settings.WINDOW_WIDTH:
-            self.rect.centerx += 1
+            self.position += self.game_settings.ship_moving_speed
         if self.moving_left and self.rect.left > 0:
-            self.rect.centerx -= 1
+            self.position -= self.game_settings.ship_moving_speed
+        
+        self.rect.centerx = self.position
 
     def display_ship(self):
         self.screen.blit(self.image, self.rect)
