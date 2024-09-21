@@ -29,7 +29,10 @@ def update_screen(screen, game_settings, ship, bullet):
     ship.move_ship()
     ship.display_ship()
 
+    
     bullet.draw_bullet()
+    bullet.update()
+    
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()

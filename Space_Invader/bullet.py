@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 from pygame.sprite import Sprite
 
@@ -10,7 +11,11 @@ class Bullet(Sprite):
         self.rect.centerx = ship.rect.centerx
         self.rect.top = ship.rect.top
 
-        self.bullet_position = float(self.rect.y)
+        self.bullet_y_position = float(self.rect.y)
     
+    def update(self):
+        self.bullet_y_position -= 0.5
+        self.rect.y = self.bullet_y_position
+
     def draw_bullet(self):
         pygame.draw.rect(self.screen, (0, 255, 0), self.rect)
