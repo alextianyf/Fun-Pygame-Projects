@@ -2,6 +2,7 @@ import pygame
 from settings import game_settings
 import game_functions
 from ship import Ship
+from bullet import Bullet
 
 def run_game():
     pygame.init()
@@ -12,13 +13,14 @@ def run_game():
     # 创建一个飞船的object
     ship = Ship(screen, game_settings)
 
+    bullet = Bullet(screen, game_settings, ship)
+
     # 开始游戏的主循环
     game_running = True
     while game_running:
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(ship)
-        ship.move_ship()
         # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship)
+        game_functions.update_screen(screen, game_settings, ship, bullet)
 
 run_game()

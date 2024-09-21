@@ -23,10 +23,13 @@ def check_mouse_key_events(ship):
         elif event.type == pygame.KEYUP:
             check_keyup(ship, event)
 
-def update_screen(screen, game_settings, ship):
+def update_screen(screen, game_settings, ship, bullet):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
+    ship.move_ship()
     ship.display_ship()
+
+    bullet.draw_bullet()
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
