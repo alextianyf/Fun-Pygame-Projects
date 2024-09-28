@@ -19,4 +19,10 @@ class Settings:
         # 设置飞船移动速度
         self.ship_moving_speed = 0.5
 
+        # 设置bullet
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_speed = 0.3
+        self.bullet_color = (0,255,0)
+
 game_settings = Settings()

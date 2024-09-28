@@ -2,7 +2,8 @@ import pygame
 from settings import game_settings
 import game_functions
 from ship import Ship
-from bullet import Bullet
+from pygame.sprite import Group
+
 
 def run_game():
     pygame.init()
@@ -10,17 +11,17 @@ def run_game():
     screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH,game_settings.WINDOW_HEIGHT))# 创建一个游戏窗口界面
     pygame.display.set_caption("Alien Invasion")# 设置游戏的名称
 
-    # 创建一个飞船的object
+    # Creatomg a object called ship(创建一个飞船的object)
     ship = Ship(screen, game_settings)
 
-    bullet = Bullet(screen, game_settings, ship)
+    bullets_group = Group()
 
     # 开始游戏的主循环
     game_running = True
     while game_running:
         # 监视键盘和鼠标的事件
-        game_functions.check_mouse_key_events(ship)
+        game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
         # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship, bullet)
+        game_functions.update_screen(screen, game_settings, ship, bullets_group)
 
 run_game()
