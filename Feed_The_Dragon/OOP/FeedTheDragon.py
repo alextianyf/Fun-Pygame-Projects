@@ -1,18 +1,5 @@
 import pygame, random
 
-#Initialize pygame
-pygame.init()
-
-#Set display surface
-WINDOW_WIDTH = 1000
-WINDOW_HEIGHT = 400
-display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("Feed the Dragon")
-
-#Set FPS and clock
-FPS = 60
-clock = pygame.time.Clock()
-
 #Set game values
 PLAYER_STARTING_LIVES = 5
 PLAYER_VELOCITY = 10
@@ -31,7 +18,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 #Set fonts
-font = pygame.font.Font('Feed_The_Dragon/AttackGraffiti.ttf', 32)
+font = pygame.font.Font('Feed_The_Dragon/Demo/AttackGraffiti.ttf', 32)
 
 #Set text
 score_text = font.render("Score: " + str(score), True, GREEN, DARKGREEN)
@@ -56,20 +43,17 @@ continue_rect = continue_text.get_rect()
 continue_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 32)
 
 #Set sounds and music
-coin_sound = pygame.mixer.Sound("Feed_The_Dragon/coin_sound.wav")
-miss_sound = pygame.mixer.Sound("Feed_The_Dragon/miss_sound.wav")
+coin_sound = pygame.mixer.Sound("Feed_The_Dragon/Demo/coin_sound.wav")
+miss_sound = pygame.mixer.Sound("Feed_The_Dragon/Demo/miss_sound.wav")
 miss_sound.set_volume(.1)
-pygame.mixer.music.load("Feed_The_Dragon/ftd_background_music.wav")
+pygame.mixer.music.load("Feed_The_Dragon/Demo/ftd_background_music.wav")
 #The main game loop
 pygame.mixer.music.play(-1, 0.0)
 
 #Set images
-player_image = pygame.image.load("Feed_The_Dragon/dragon_right.png")
-player_rect = player_image.get_rect()
-player_rect.left = 32
-player_rect.centery = WINDOW_HEIGHT//2
 
-coin_image = pygame.image.load("Feed_The_Dragon/coin.png")
+
+coin_image = pygame.image.load("Feed_The_Dragon/Demo/coin.png")
 coin_rect = coin_image.get_rect()
 coin_rect.x = WINDOW_WIDTH + BUFFER_DISTANCE
 coin_rect.y = random.randint(64, WINDOW_HEIGHT - 32)
@@ -146,7 +130,6 @@ while running:
     pygame.draw.line(display_surface, WHITE, (0, 64), (WINDOW_WIDTH, 64), 2)
 
     #Blit assets to screen
-    display_surface.blit(player_image, player_rect)
     display_surface.blit(coin_image, coin_rect)
 
     #Update display and tick the clock
