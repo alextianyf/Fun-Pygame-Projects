@@ -11,7 +11,7 @@ def run_game():
     screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH,game_settings.WINDOW_HEIGHT))# 创建一个游戏窗口界面
     pygame.display.set_caption("Alien Invasion")# 设置游戏的名称
 
-    # Creatomg a object called ship(创建一个飞船的object)
+    # Creating a object called ship(创建一个飞船的object)
     ship = Ship(screen, game_settings)
 
     bullets_group = Group()
