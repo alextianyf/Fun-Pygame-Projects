@@ -24,5 +24,6 @@ class Settings:
         self.bullet_height = 15
         self.bullet_speed = 0.3
         self.bullet_color = (0,255,0)
+        self.bullet_num_allowed = 8
 
 game_settings = Settings()
