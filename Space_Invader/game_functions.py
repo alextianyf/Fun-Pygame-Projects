@@ -40,7 +40,7 @@ def update_bullet(bullets_group):
     # Debugging purpose
     #print(len(bullets_group))
 
-def update_screen(screen, game_settings, ship, bullets_group):
+def update_screen(screen, game_settings, ship, alien,bullets_group):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
 
@@ -50,6 +50,9 @@ def update_screen(screen, game_settings, ship, bullets_group):
 
     # 更新显示bullet
     update_bullet(bullets_group)
+
+    # 更新显示alien
+    alien.display_alien()
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()

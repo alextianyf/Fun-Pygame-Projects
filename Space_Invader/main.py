@@ -2,6 +2,7 @@ import pygame
 from settings import game_settings
 import game_functions
 from ship import Ship
+from alien import Alien
 from pygame.sprite import Group
 
 
@@ -13,6 +14,7 @@ def run_game():
 
     # Creating a object called ship(创建一个飞船的object)
     ship = Ship(screen, game_settings)
+    alien = Alien(screen, game_settings)
 
     bullets_group = Group()
 
@@ -22,6 +24,6 @@ def run_game():
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
         # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship, bullets_group)
+        game_functions.update_screen(screen, game_settings, ship, alien, bullets_group)
 
 run_game()
