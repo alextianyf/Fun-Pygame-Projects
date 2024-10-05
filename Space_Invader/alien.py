@@ -13,7 +13,7 @@ class Alien(Sprite):
         self.rect.x= 20
         self.rect.y = 20
 
-        self.x = float(self.rect.x)
+        self.alien_position = float(self.rect.x)
     
     def display_alien(self):
         self.screen.blit(self.image, self.rect)
