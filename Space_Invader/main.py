@@ -17,13 +17,15 @@ def run_game():
     alien = Alien(screen, game_settings)
 
     bullets_group = Group()
+    aliens_group = Group()
 
+    game_functions.create_aliens_in_a_row(game_settings, alien,screen, aliens_group)
     # 开始游戏的主循环
     game_running = True
     while game_running:
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
         # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship, alien, bullets_group)
+        game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group)
 
 run_game()

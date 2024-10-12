@@ -10,8 +10,8 @@ class Alien(Sprite):
         self.image = pygame.image.load("./Space_Invader/assets/images/alien.png")
         self.rect = self.image.get_rect()
 
-        self.rect.x= 20
-        self.rect.y = 20
+        self.rect.x = 0
+        self.rect.y = self.rect.height
 
         self.alien_position = float(self.rect.x)
     

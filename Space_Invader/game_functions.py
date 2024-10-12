@@ -1,6 +1,21 @@
 import pygame
 import sys
 from bullet import Bullet
+from alien import Alien
+
+def get_number_aliens_in_a_row(game_settings, alien):
+    alien_width = alien.rect.width
+    available_space_x = game_settings.WINDOW_WIDTH - 2 * alien_width
+    number_aliens_x = int(available_space_x / (2 * alien_width))
+    return number_aliens_x, alien_width
+
+def create_aliens_in_a_row(game_settings, alien, screen, aliens_group):
+    number_of_aliens, alien_width= get_number_aliens_in_a_row(game_settings, alien)
+    for number in range(number_of_aliens):
+        alien = Alien(screen, game_settings)
+        alien.rect.x = alien_width + 2 * alien_width * number
+        aliens_group.add(alien)
+
 def fire_bullet(bullets_group,screen,game_settings,ship):
     if len(bullets_group) < game_settings.bullet_num_allowed:
                 bullets_group.add(Bullet(screen, game_settings, ship))
@@ -40,7 +55,7 @@ def update_bullet(bullets_group):
     # Debugging purpose
     #print(len(bullets_group))
 
-def update_screen(screen, game_settings, ship, alien,bullets_group):
+def update_screen(screen, game_settings, ship, aliens_group,bullets_group):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
 
@@ -52,7 +67,7 @@ def update_screen(screen, game_settings, ship, alien,bullets_group):
     update_bullet(bullets_group)
 
     # 更新显示alien
-    alien.display_alien()
+    aliens_group.draw(screen)
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
