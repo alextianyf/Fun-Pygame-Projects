@@ -3,18 +3,22 @@ import sys
 from bullet import Bullet
 from alien import Alien
 
-def get_number_aliens_in_a_row(game_settings, alien):
-    alien_width = alien.rect.width
+def get_number_aliens_in_a_row(game_settings, alien_width):
     available_space_x = game_settings.WINDOW_WIDTH - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
-    return number_aliens_x, alien_width
+    return number_aliens_x
 
-def create_aliens_in_a_row(game_settings, alien, screen, aliens_group):
-    number_of_aliens, alien_width= get_number_aliens_in_a_row(game_settings, alien)
+def create_alien(screen,game_settings,number,aliens_group,alien_width):
+    alien =Alien(screen, game_settings)
+    alien.rect.x = alien_width + 2 * alien_width * number
+    aliens_group.add(alien)
+
+def create_aliens_in_a_row(game_settings, screen, aliens_group):
+    alien =Alien(screen, game_settings)
+    alien_width = alien.rect.width
+    number_of_aliens= get_number_aliens_in_a_row(game_settings, alien_width)
     for number in range(number_of_aliens):
-        alien = Alien(screen, game_settings)
-        alien.rect.x = alien_width + 2 * alien_width * number
-        aliens_group.add(alien)
+        create_alien(screen,game_settings,number,aliens_group,alien_width)
 
 def fire_bullet(bullets_group,screen,game_settings,ship):
     if len(bullets_group) < game_settings.bullet_num_allowed:

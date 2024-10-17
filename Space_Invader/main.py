@@ -14,12 +14,11 @@ def run_game():
 
     # Creating a object called ship(创建一个飞船的object)
     ship = Ship(screen, game_settings)
-    alien = Alien(screen, game_settings)
 
     bullets_group = Group()
     aliens_group = Group()
 
-    game_functions.create_aliens_in_a_row(game_settings, alien,screen, aliens_group)
+    game_functions.create_aliens_in_a_row(game_settings,screen, aliens_group)
     # 开始游戏的主循环
     game_running = True
     while game_running:
