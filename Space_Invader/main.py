@@ -18,7 +18,7 @@ def run_game():
     bullets_group = Group()
     aliens_group = Group()
 
-    game_functions.create_aliens_in_a_row(game_settings,screen, aliens_group)
+    game_functions.create_aliens_in_a_row(game_settings,screen, aliens_group, ship)
     # 开始游戏的主循环
     game_running = True
     while game_running:
