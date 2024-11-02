@@ -2,7 +2,6 @@ import pygame
 from settings import game_settings
 import game_functions
 from ship import Ship
-from alien import Alien
 from pygame.sprite import Group
 
 
@@ -18,7 +17,7 @@ def run_game():
     bullets_group = Group()
     aliens_group = Group()
 
-    game_functions.create_aliens_in_a_row(game_settings,screen, aliens_group, ship)
+    game_functions.create_alien_grid(game_settings,screen, aliens_group, ship)
     # 开始游戏的主循环
     game_running = True
     while game_running:
