@@ -34,6 +34,17 @@ def create_alien_grid(game_settings, screen, aliens_group, ship):
             y_position = alien_height + 2 * alien_height * row_number
             create_alien(screen, game_settings, x_position, y_position, aliens_group)
 
+def change_alien_grid_direction(aliens_group):
+    for alien in aliens_group.sprites():
+        alien.rect.y += alien.drop_speed
+        alien.direction *= -1
+
+def check_alien_grid_hit_edge(aliens_group):
+    for alien in aliens_group.sprites():
+        if alien.hit_edges():
+            change_alien_grid_direction(aliens_group)
+            break
+
 def fire_bullet(bullets_group,screen,game_settings,ship):
     if len(bullets_group) < game_settings.bullet_num_allowed:
                 bullets_group.add(Bullet(screen, game_settings, ship))
@@ -85,6 +96,7 @@ def update_screen(screen, game_settings, ship, aliens_group,bullets_group):
     update_bullet(bullets_group)
 
     # 更新显示alien
+    check_alien_grid_hit_edge(aliens_group)
     aliens_group.update()
     aliens_group.draw(screen)
 

@@ -26,4 +26,11 @@ class Settings:
         self.bullet_color = (0,255,0)
         self.bullet_num_allowed = 8
 
+        # 设置alien
+        self.LEFT = -1
+        self.RIGHT = 1
+        self.alien_init_direction = self.RIGHT
+        self.alien_speed = 0.6
+        self.alien_drop_speed = 5
+
 game_settings = Settings()
