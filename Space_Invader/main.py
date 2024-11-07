@@ -6,6 +6,7 @@ from pygame.sprite import Group
 
 
 def run_game():
+    clock = pygame.time.Clock()
     pygame.init()
 
     screen = pygame.display.set_mode((game_settings.WINDOW_WIDTH,game_settings.WINDOW_HEIGHT))# 创建一个游戏窗口界面
@@ -21,6 +22,7 @@ def run_game():
     # 开始游戏的主循环
     game_running = True
     while game_running:
+        clock.tick(game_settings.FPS)
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
         # 更新屏幕
