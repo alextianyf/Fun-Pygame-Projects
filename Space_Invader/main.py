@@ -1,5 +1,6 @@
 import pygame
 from settings import game_settings
+from game_stats import GameStats
 import game_functions
 from ship import Ship
 from pygame.sprite import Group
@@ -18,6 +19,8 @@ def run_game():
     bullets_group = Group()
     aliens_group = Group()
 
+    stats = GameStats(game_settings)
+
     game_functions.create_alien_grid(game_settings,screen, aliens_group, ship)
     # 开始游戏的主循环
     game_running = True
@@ -26,6 +29,6 @@ def run_game():
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
         # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group)
+        game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats)
 
 run_game()

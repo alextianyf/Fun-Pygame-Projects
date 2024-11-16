@@ -9,6 +9,7 @@ class Settings:
     # 初始化游戏的设置
     def __init__(self):
         self.FPS = 60
+        self.player_lives = 3
 
         # 屏幕尺寸的设置
         self.WINDOW_WIDTH = 1200
@@ -32,6 +33,6 @@ class Settings:
         self.RIGHT = 1
         self.alien_init_direction = self.RIGHT
         self.alien_speed = 1.3
-        self.alien_drop_speed = 5
+        self.alien_drop_speed = 45
 
 game_settings = Settings()

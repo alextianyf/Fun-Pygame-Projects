@@ -32,3 +32,6 @@ class Ship:
 
     def display_ship(self):
         self.screen.blit(self.image, self.rect)
+    
+    def center_ship(self):
+        self.position = self.game_settings.WINDOW_WIDTH//2
