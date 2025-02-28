@@ -78,15 +78,20 @@ def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, pla
             check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y)
 
 def check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y):
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
-        stats.reset_stats()
-        stats.game_active = True
+    button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
 
-        aliens_group.empty()
-        bullets_group.empty()
+    if button_clicked and not stats.game_active:
+        pygame.mouse.set_visible(False)
 
-        create_alien_grid(game_settings, screen, aliens_group, ship)
-        ship.center_ship()
+        if play_button.rect.collidepoint(mouse_x, mouse_y):
+            stats.reset_stats()
+            stats.game_active = True
+
+            aliens_group.empty()
+            bullets_group.empty()
+
+            create_alien_grid(game_settings, screen, aliens_group, ship)
+            ship.center_ship()
 
 def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship):
     collisions = pygame.sprite.groupcollide(bullets_group, aliens_group,True, True)
@@ -118,6 +123,7 @@ def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen):
     
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 def check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen):
     screen_rect = screen.get_rect()
