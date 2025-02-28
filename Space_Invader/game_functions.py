@@ -118,7 +118,7 @@ def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
     #print(len(bullets_group))
     check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship)
 
-def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats):
+def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats, play_button):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
 

@@ -3,6 +3,7 @@ from settings import game_settings
 from game_stats import GameStats
 import game_functions
 from ship import Ship
+from button import Button
 from pygame.sprite import Group
 
 
@@ -15,6 +16,9 @@ def run_game():
 
     # Creating a object called ship(创建一个飞船的object)
     ship = Ship(screen, game_settings)
+
+    # Creating Button Object
+    play_button = Button(game_settings,screen, "Play")
 
     bullets_group = Group()
     aliens_group = Group()
@@ -32,5 +36,9 @@ def run_game():
         if stats.game_active:
             # 更新屏幕
             game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats)
+
+        else:
+            play_button.draw_button()
+            pygame.display.flip()
 
 run_game()
