@@ -28,7 +28,9 @@ def run_game():
         clock.tick(game_settings.FPS)
         # 监视键盘和鼠标的事件
         game_functions.check_mouse_key_events(screen, game_settings,ship, bullets_group)
-        # 更新屏幕
-        game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats)
+
+        if stats.game_active:
+            # 更新屏幕
+            game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats)
 
 run_game()

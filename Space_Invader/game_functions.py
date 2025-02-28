@@ -91,16 +91,20 @@ def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship
     
 
 def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen):
-    stats.player_life_remain -= 1
+    if stats.player_life_remain > 1:
+        stats.player_life_remain -= 1
 
-    aliens_group.empty()
-    bullets_group.empty()
+        aliens_group.empty()
+        bullets_group.empty()
 
-    if len(aliens_group) == 0:
-        create_alien_grid(game_settings, screen, aliens_group, ship)
-        ship.center_ship()
-
-    sleep(0.5)
+        if len(aliens_group) == 0:
+            create_alien_grid(game_settings, screen, aliens_group, ship)
+            ship.center_ship()
+        print(stats.player_life_remain)
+        sleep(0.5)
+    
+    else:
+        stats.game_active = False
 
 def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
     for bullet in bullets_group.sprites():
