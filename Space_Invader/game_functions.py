@@ -64,7 +64,7 @@ def check_keyup(ship, event):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def check_mouse_key_events(screen, game_settings,ship, bullets_group):
+def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group):
     # 监视键盘和鼠标的事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -73,6 +73,20 @@ def check_mouse_key_events(screen, game_settings,ship, bullets_group):
             check_keydown(screen, game_settings,ship, bullets_group, event)
         elif event.type == pygame.KEYUP:
             check_keyup(ship, event)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y)
+
+def check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y):
+    if play_button.rect.collidepoint(mouse_x, mouse_y):
+        stats.reset_stats()
+        stats.game_active = True
+
+        aliens_group.empty()
+        bullets_group.empty()
+
+        create_alien_grid(game_settings, screen, aliens_group, ship)
+        ship.center_ship()
 
 def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship):
     collisions = pygame.sprite.groupcollide(bullets_group, aliens_group,True, True)
@@ -88,7 +102,6 @@ def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_g
 def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen):
     if pygame.sprite.spritecollideany(ship, aliens_group):
         ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen)
-    
 
 def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen):
     if stats.player_life_remain > 1:
@@ -100,11 +113,18 @@ def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen):
         if len(aliens_group) == 0:
             create_alien_grid(game_settings, screen, aliens_group, ship)
             ship.center_ship()
-        print(stats.player_life_remain)
+
         sleep(0.5)
     
     else:
         stats.game_active = False
+
+def check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen):
+    screen_rect = screen.get_rect()
+    for alien in aliens_group.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen)
+            break # if any reach bottom, then break, which don't need to complete the for loop
 
 def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
     for bullet in bullets_group.sprites():
@@ -118,7 +138,7 @@ def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
     #print(len(bullets_group))
     check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship)
 
-def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats, play_button):
+def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
 
@@ -132,6 +152,7 @@ def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats
     # 更新显示alien
     check_alien_grid_hit_edge(aliens_group)
     check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship, stats, screen)
+    check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen)
     aliens_group.update()
     aliens_group.draw(screen)
 
