@@ -88,11 +88,10 @@ def check_play_button(screen, game_settings,ship, bullets_group, stats, play_but
             stats.reset_stats()
             stats.game_active = True
 
-
-
             score.prep_score()
             score.prep_high_score()
             score.prep_level()
+            score.prep_ships()
 
             aliens_group.empty()
             bullets_group.empty()
@@ -125,14 +124,15 @@ def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_g
 
         create_alien_grid(game_settings, screen, aliens_group, ship)
 
-def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen):
+def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen, score):
     if pygame.sprite.spritecollideany(ship, aliens_group):
-        ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen)
+        ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score)
 
-def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen):
+def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score):
     if stats.player_life_remain > 1:
         stats.player_life_remain -= 1
 
+        score.prep_ships()
         aliens_group.empty()
         bullets_group.empty()
 
@@ -179,7 +179,7 @@ def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats
 
     # 更新显示alien
     check_alien_grid_hit_edge(aliens_group)
-    check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship, stats, screen)
+    check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship, stats, screen, score)
     check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen)
     aliens_group.update()
     aliens_group.draw(screen)

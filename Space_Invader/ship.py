@@ -1,12 +1,15 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """
     @Object:
 
         创建一个飞船类，用以管理飞船所有的属性和动作。
     """
     def __init__(self, display_screen, game_settings):
+        super(Ship, self).__init__()
+        
         self.screen = display_screen
         self.game_settings = game_settings
 
