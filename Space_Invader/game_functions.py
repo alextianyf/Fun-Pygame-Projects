@@ -64,7 +64,7 @@ def check_keyup(ship, event):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group):
+def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, score):
     # 监视键盘和鼠标的事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -75,18 +75,24 @@ def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, pla
             check_keyup(ship, event)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y)
+            check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y,score)
 
-def check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y):
+def check_play_button(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, mouse_x, mouse_y, score):
     button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
 
     if button_clicked and not stats.game_active:
-        game_settings.increase_speed()
+        game_settings.init_dynamic_settings()
         pygame.mouse.set_visible(False)
 
         if play_button.rect.collidepoint(mouse_x, mouse_y):
             stats.reset_stats()
             stats.game_active = True
+
+
+
+            score.prep_score()
+            score.prep_high_score()
+            score.prep_level()
 
             aliens_group.empty()
             bullets_group.empty()
@@ -112,6 +118,11 @@ def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_g
     if len(aliens_group) <= 0:
         bullets_group.empty()
         game_settings.increase_speed()
+
+        # level up
+        stats.level += 1
+        score.prep_level()
+
         create_alien_grid(game_settings, screen, aliens_group, ship)
 
 def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen):
