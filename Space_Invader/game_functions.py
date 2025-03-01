@@ -46,17 +46,18 @@ def check_alien_grid_hit_edge(aliens_group):
             change_alien_grid_direction(aliens_group)
             break
 
-def fire_bullet(bullets_group,screen,game_settings,ship):
+def fire_bullet(bullets_group,screen,game_settings,ship, sounds):
     if len(bullets_group) < game_settings.bullet_num_allowed:
+                sounds.play_fire_sound()
                 bullets_group.add(Bullet(screen, game_settings, ship))
 
-def check_keydown(screen, game_settings,ship, bullets_group, event):
+def check_keydown(screen, game_settings,ship, bullets_group, event, sounds):
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        fire_bullet(bullets_group, screen, game_settings,ship)
+        fire_bullet(bullets_group, screen, game_settings,ship, sounds)
 
 def check_keyup(ship, event):
     if event.key == pygame.K_RIGHT:
@@ -64,13 +65,13 @@ def check_keyup(ship, event):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, score):
+def check_mouse_key_events(screen, game_settings,ship, bullets_group, stats, play_button, aliens_group, score,sounds):
     # 监视键盘和鼠标的事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown(screen, game_settings,ship, bullets_group, event)
+            check_keydown(screen, game_settings,ship, bullets_group, event, sounds)
         elif event.type == pygame.KEYUP:
             check_keyup(ship, event)
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -104,12 +105,13 @@ def check_high_score(stats, score):
         stats.high_score = stats.score
         score.prep_high_score()
 
-def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score):
+def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score, sounds):
     collisions = pygame.sprite.groupcollide(bullets_group, aliens_group,True, True)
     if collisions:
         # 如果检测到子弹击中alien，且希望增加分数或更新其他内容
         # 不改变alien_speed
         for aliens_group in collisions.values():
+            sounds.play_alien_hit_sound()
             stats.score += game_settings.alien_points
             score.prep_score()
         check_high_score(stats, score)
@@ -124,14 +126,15 @@ def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_g
 
         create_alien_grid(game_settings, screen, aliens_group, ship)
 
-def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen, score):
+def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen, score, sounds):
     if pygame.sprite.spritecollideany(ship, aliens_group):
-        ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score)
+        ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score, sounds)
 
-def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score):
+def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score, sounds):
     if stats.player_life_remain > 1:
         stats.player_life_remain -= 1
 
+        sounds.play_fail_sound()
         score.prep_ships()
         aliens_group.empty()
         bullets_group.empty()
@@ -146,14 +149,15 @@ def ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, sc
         stats.game_active = False
         pygame.mouse.set_visible(True)
 
-def check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen):
+def check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen, score, sounds):
     screen_rect = screen.get_rect()
     for alien in aliens_group.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen)
+            sounds.play_fail_sound()
+            ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen, score, sounds)
             break # if any reach bottom, then break, which don't need to complete the for loop
 
-def update_bullets(game_settings,screen,aliens_group, bullets_group, ship, stats, score):
+def update_bullets(game_settings,screen,aliens_group, bullets_group, ship, stats, score, sounds):
     for bullet in bullets_group.sprites():
         bullet.draw_bullet()
         bullet.display_bullet()
@@ -163,9 +167,9 @@ def update_bullets(game_settings,screen,aliens_group, bullets_group, ship, stats
             bullets_group.remove(bullet)
     # Debugging purpose
     #print(len(bullets_group))
-    check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score)
+    check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score, sounds)
 
-def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats, score):
+def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats, score, sounds):
     # 每次循环时，都重新绘制屏幕颜色
     screen.fill(game_settings.bg_color)
     score.show_score()
@@ -175,12 +179,12 @@ def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats
     ship.display_ship()
 
     # 更新显示bullet
-    update_bullets(game_settings, screen, aliens_group, bullets_group, ship, stats, score)
+    update_bullets(game_settings, screen, aliens_group, bullets_group, ship, stats, score, sounds)
 
     # 更新显示alien
     check_alien_grid_hit_edge(aliens_group)
-    check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship, stats, screen, score)
-    check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen)
+    check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship, stats, screen, score, sounds)
+    check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship, screen, score, sounds)
     aliens_group.update()
     aliens_group.draw(screen)
 
