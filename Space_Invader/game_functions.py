@@ -81,6 +81,7 @@ def check_play_button(screen, game_settings,ship, bullets_group, stats, play_but
     button_clicked = play_button.rect.collidepoint(mouse_x,mouse_y)
 
     if button_clicked and not stats.game_active:
+        game_settings.increase_speed()
         pygame.mouse.set_visible(False)
 
         if play_button.rect.collidepoint(mouse_x, mouse_y):
@@ -102,6 +103,7 @@ def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_g
     
     if len(aliens_group) <= 0:
         bullets_group.empty()
+        game_settings.increase_speed()
         create_alien_grid(game_settings, screen, aliens_group, ship)
 
 def check_ship_aliens_collision(game_settings, aliens_group, bullets_group, ship,stats, screen):

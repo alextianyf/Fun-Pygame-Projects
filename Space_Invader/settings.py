@@ -18,21 +18,35 @@ class Settings:
         # 背景颜色的设置
         self.bg_color = (0,0,0)
 
-        # 设置飞船移动速度
-        self.ship_moving_speed = 4
-
         # 设置bullet
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_speed = 5
+        
         self.bullet_color = (0,255,0)
         self.bullet_num_allowed = 8
 
         # 设置alien
         self.LEFT = -1
         self.RIGHT = 1
-        self.alien_init_direction = self.RIGHT
+        self.speedup_scale = 1.1
+        
+        self.init_dynamic_settings()
+
+    def init_dynamic_settings(self):
+        # 设置飞船移动速度
+        self.ship_moving_speed = 4
+
+        # Setting bullet speed
+        self.bullet_speed = 5
+
+        # Setting aliens speed
         self.alien_speed = 1.3
         self.alien_drop_speed = 45
+        self.alien_init_direction = self.RIGHT
+
+    def increase_speed(self):
+        self.ship_moving_speed *= self.speedup_scale
+        self.bullet_speed *= self.speedup_scale
+        self.alien_speed *= self.speedup_scale
 
 game_settings = Settings()
