@@ -94,12 +94,20 @@ def check_play_button(screen, game_settings,ship, bullets_group, stats, play_but
             create_alien_grid(game_settings, screen, aliens_group, ship)
             ship.center_ship()
 
-def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship):
+def check_high_score(stats, score):
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        score.prep_high_score()
+
+def check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score):
     collisions = pygame.sprite.groupcollide(bullets_group, aliens_group,True, True)
     if collisions:
         # 如果检测到子弹击中alien，且希望增加分数或更新其他内容
         # 不改变alien_speed
-        pass
+        for aliens_group in collisions.values():
+            stats.score += game_settings.alien_points
+            score.prep_score()
+        check_high_score(stats, score)
     
     if len(aliens_group) <= 0:
         bullets_group.empty()
@@ -134,7 +142,7 @@ def check_aliens_bottom(game_settings, stats, aliens_group, bullets_group, ship,
             ship_hit(game_settings, stats, aliens_group, bullets_group, ship, screen)
             break # if any reach bottom, then break, which don't need to complete the for loop
 
-def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
+def update_bullets(game_settings,screen,aliens_group, bullets_group, ship, stats, score):
     for bullet in bullets_group.sprites():
         bullet.draw_bullet()
         bullet.display_bullet()
@@ -144,7 +152,7 @@ def update_bullets(game_settings,screen,aliens_group, bullets_group, ship):
             bullets_group.remove(bullet)
     # Debugging purpose
     #print(len(bullets_group))
-    check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship)
+    check_bullet_alien_collisions(game_settings, screen, bullets_group, aliens_group, ship, stats, score)
 
 def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats, score):
     # 每次循环时，都重新绘制屏幕颜色
@@ -156,7 +164,7 @@ def update_screen(screen, game_settings, ship, aliens_group,bullets_group, stats
     ship.display_ship()
 
     # 更新显示bullet
-    update_bullets(game_settings, screen, aliens_group, bullets_group, ship)
+    update_bullets(game_settings, screen, aliens_group, bullets_group, ship, stats, score)
 
     # 更新显示alien
     check_alien_grid_hit_edge(aliens_group)
