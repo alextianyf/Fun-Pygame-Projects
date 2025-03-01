@@ -4,6 +4,7 @@ from game_stats import GameStats
 import game_functions
 from ship import Ship
 from button import Button
+from scoreboard import Scoreboard
 from pygame.sprite import Group
 
 
@@ -24,6 +25,7 @@ def run_game():
     aliens_group = Group()
 
     stats = GameStats(game_settings)
+    score = Scoreboard(game_settings, screen, stats)
 
     game_functions.create_alien_grid(game_settings,screen, aliens_group, ship)
     # 开始游戏的主循环
@@ -35,7 +37,7 @@ def run_game():
 
         if stats.game_active:
             # 更新屏幕
-            game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats)
+            game_functions.update_screen(screen, game_settings, ship, aliens_group, bullets_group, stats, score)
 
         else:
             play_button.draw_button()
