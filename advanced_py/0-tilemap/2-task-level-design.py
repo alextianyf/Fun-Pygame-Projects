@@ -18,7 +18,7 @@ FPS = 60
 clock = pygame.time.Clock()
 
 # 设置所有图像资源所在的目录路径前缀
-TILE_PATH = "./advanced_py/0-tilemap/"
+TILE_PATH = "./advanced_py/assets/"
 
 # 加载瓦片图像，并用字典来映射 tile 编号 → 对应图片
 # convert_alpha() 保留透明背景并优化显示速度
