@@ -56,15 +56,15 @@ class Player(pygame.sprite.Sprite):
 
 	def import_assets(self): 
 		self.animations = {}
-		for index, folder in enumerate(walk('../graphics/player')):
+		for index, folder in enumerate(walk('./frogger_project_files/project_13 - finish/graphics/player')):
 			if index == 0:
 				for name in folder[1]:
 					self.animations[name] = []
 			else:
 				for file_name in folder[2]:
-					path = folder[0].replace('\\', '/') + '/' + file_name # exercise: turn \ -> /
+					path = folder[0].replace('\\', '/') + '/' + file_name
 					surf = pygame.image.load(path).convert_alpha()
-					key = folder[0].split('\\')[1]
+					key = folder[0].replace('\\', '/').split('/')[-1]
 					self.animations[key].append(surf)
 
 	def move(self,dt):

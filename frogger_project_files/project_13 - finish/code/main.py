@@ -9,8 +9,8 @@ class AllSprites(pygame.sprite.Group):
 	def __init__(self):
 		super().__init__()
 		self.offset = pygame.math.Vector2()
-		self.bg = pygame.image.load('../graphics/main/map.png').convert()
-		self.fg = pygame.image.load('../graphics/main/overlay.png').convert_alpha()
+		self.bg = pygame.image.load('./frogger_project_files/project_13 - finish/graphics/main/map.png').convert()
+		self.fg = pygame.image.load('./frogger_project_files/project_13 - finish/graphics/main/overlay.png').convert_alpha()
 
 	def customize_draw(self):
 
@@ -51,18 +51,18 @@ text_surf = font.render('You won!',True,'White')
 text_rect = text_surf.get_rect(center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
 # music
-music = pygame.mixer.Sound('../audio/music.mp3')
+music = pygame.mixer.Sound('./frogger_project_files/project_13 - finish/audio/music.mp3')
 music.play(loops = -1)
 
 # sprite setup
 for file_name, pos_list in SIMPLE_OBJECTS.items():
-	path = f'../graphics/objects/simple/{file_name}.png'
+	path = f'./frogger_project_files/project_13 - finish/graphics/objects/simple/{file_name}.png'
 	surf = pygame.image.load(path).convert_alpha()
 	for pos in pos_list:
 		SimpleSprite(surf,pos,[all_sprites,obstacle_sprites])
 
 for file_name, pos_list in LONG_OBJECTS.items():
-	surf = pygame.image.load(f'../graphics/objects/long/{file_name}.png').convert_alpha()
+	surf = pygame.image.load(f'./frogger_project_files/project_13 - finish/graphics/objects/long/{file_name}.png').convert_alpha()
 	for pos in pos_list:
 		LongSprite(surf,pos,[all_sprites,obstacle_sprites])
 

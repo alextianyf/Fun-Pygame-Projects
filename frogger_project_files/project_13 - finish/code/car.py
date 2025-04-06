@@ -7,10 +7,10 @@ class Car(pygame.sprite.Sprite):
 		super().__init__(groups)
 		self.name = 'car'
 		
-		for _, _, img_list in walk('../graphics/cars'):
+		for _, _, img_list in walk('./frogger_project_files/project_13 - finish/graphics/cars'):
 			car_name = choice(img_list)
 
-		self.image = pygame.image.load('../graphics/cars/' + car_name).convert_alpha()
+		self.image = pygame.image.load('./frogger_project_files/project_13 - finish/graphics/cars/' + car_name).convert_alpha()
 		self.rect = self.image.get_rect(center = pos)
 
 		# float based movement 
