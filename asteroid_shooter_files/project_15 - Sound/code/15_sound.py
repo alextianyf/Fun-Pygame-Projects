@@ -38,14 +38,14 @@ pygame.display.set_caption('Meteor shooter')
 clock = pygame.time.Clock()
 
 # ship import
-ship_surf = pygame.image.load('../graphics/ship.png').convert_alpha()
+ship_surf = pygame.image.load('./asteroid_shooter_files/project_15 - Sound/graphics/ship.png').convert_alpha()
 ship_rect = ship_surf.get_rect(center = (WINDOW_WIDTH / 2,WINDOW_HEIGHT / 2))
 
 # background 
-bg_surf = pygame.image.load('../graphics/background.png').convert()
+bg_surf = pygame.image.load('./asteroid_shooter_files/project_15 - Sound/graphics/background.png').convert()
 
 # laser import
-laser_surf = pygame.image.load('../graphics/laser.png').convert_alpha()
+laser_surf = pygame.image.load('./asteroid_shooter_files/project_15 - Sound/graphics/laser.png').convert_alpha()
 laser_list = []
 
 # laser timer 
@@ -53,10 +53,10 @@ can_shoot = True
 shoot_time = None
 
 # import text 
-font = pygame.font.Font('../graphics/subatomic.ttf', 50)
+font = pygame.font.Font('./asteroid_shooter_files/project_15 - Sound/graphics/subatomic.ttf', 50)
 
 # meteor
-meteor_surf = pygame.image.load('../graphics/meteor.png').convert_alpha()
+meteor_surf = pygame.image.load('./asteroid_shooter_files/project_15 - Sound/graphics/meteor.png').convert_alpha()
 meteor_list = []
 
 # meteor timer 
@@ -64,9 +64,9 @@ meteor_timer = pygame.event.custom_type()
 pygame.time.set_timer(meteor_timer,500)
 
 # import sound
-laser_sound = pygame.mixer.Sound('../sounds/laser.ogg')
-explosion_sound = pygame.mixer.Sound('../sounds/explosion.wav')
-background_music = pygame.mixer.Sound('../sounds/music.wav')
+laser_sound = pygame.mixer.Sound('./asteroid_shooter_files/project_15 - Sound/sounds/laser.ogg')
+explosion_sound = pygame.mixer.Sound('./asteroid_shooter_files/project_15 - Sound/sounds/explosion.wav')
+background_music = pygame.mixer.Sound('./asteroid_shooter_files/project_15 - Sound/sounds/music.wav')
 background_music.play(loops = -1)
 
 while True: 
