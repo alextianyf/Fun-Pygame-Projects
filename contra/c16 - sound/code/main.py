@@ -15,9 +15,9 @@ class AllSprites(pygame.sprite.Group):
 		self.offset = vector()
 
 		# import 
-		self.fg_sky = pygame.image.load('../graphics/sky/fg_sky.png').convert_alpha()
-		self.bg_sky = pygame.image.load('../graphics/sky/bg_sky.png').convert_alpha()
-		tmx_map = load_pygame('../data/map.tmx')
+		self.fg_sky = pygame.image.load('./contra/c16 - sound/graphics/sky/fg_sky.png').convert_alpha()
+		self.bg_sky = pygame.image.load('./contra/c16 - sound/graphics/sky/bg_sky.png').convert_alpha()
+		tmx_map = load_pygame('./contra/c16 - sound/data/map.tmx')
 
 		# dimensions
 		self.padding = WINDOW_WIDTH / 2
@@ -47,7 +47,7 @@ class Main:
 	def __init__(self):
 		pygame.init()
 		self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-		pygame.display.set_caption('Cont ra')
+		pygame.display.set_caption('Contra')
 		self.clock = pygame.time.Clock()
 
 		# groups 
@@ -61,17 +61,17 @@ class Main:
 		self.overlay = Overlay(self.player)
 
 		# bullet images 
-		self.bullet_surf = pygame.image.load('../graphics/bullet.png').convert_alpha()
+		self.bullet_surf = pygame.image.load('./contra/c16 - sound/graphics/bullet.png').convert_alpha()
 		self.fire_surfs = [
-			pygame.image.load('../graphics/fire/0.png').convert_alpha(),
-			pygame.image.load('../graphics/fire/1.png').convert_alpha()]
+			pygame.image.load('./contra/c16 - sound/graphics/fire/0.png').convert_alpha(),
+			pygame.image.load('./contra/c16 - sound/graphics/fire/1.png').convert_alpha()]
 
 		# music 
-		self.music = pygame.mixer.Sound('../audio/music.wav')
+		self.music = pygame.mixer.Sound('./contra/c16 - sound/audio/music.wav')
 		# self.music.play(loops = -1)
 
 	def setup(self):
-		tmx_map = load_pygame('../data/map.tmx')
+		tmx_map = load_pygame('./contra/c16 - sound/data/map.tmx')
 		
 		# collision tiles 
 		for x,y, surf in tmx_map.get_layer_by_name('Level').tiles():
@@ -88,13 +88,13 @@ class Main:
 				self.player = Player(
 					pos = (obj.x,obj.y), 
 					groups = [self.all_sprites, self.vulnerable_sprites], 
-					path = '../graphics/player', 
+					path = './contra/c16 - sound/graphics/player', 
 					collision_sprites = self.collision_sprites, 
 					shoot = self.shoot)
 			if obj.name == 'Enemy':
 				Enemy(
 					pos = (obj.x,obj.y), 
-					path = '../graphics/enemy', 
+					path = './contra/c16 - sound/graphics/enemy', 
 					groups = [self.all_sprites, self.vulnerable_sprites], 
 					shoot = self.shoot, 
 					player = self.player, 

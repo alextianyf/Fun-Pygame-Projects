@@ -39,9 +39,9 @@ class Entity(pygame.sprite.Sprite):
 		self.invul_duration = 500
 
 		# audio
-		self.hit_sound = pygame.mixer.Sound('../audio/hit.wav')
+		self.hit_sound = pygame.mixer.Sound('./contra/c16 - sound/audio/hit.wav')
 		self.hit_sound.set_volume(0.2)
-		self.shoot_sound = pygame.mixer.Sound('../audio/bullet.wav')
+		self.shoot_sound = pygame.mixer.Sound('./contra/c16 - sound/audio/bullet.wav')
 		self.shoot_sound.set_volume(0.2)
 
 
@@ -91,15 +91,16 @@ class Entity(pygame.sprite.Sprite):
 			if current_time - self.hit_time > self.invul_duration:
 				self.is_vulnerable = True
 
-	def import_assets(self,path):
+	def import_assets(self, path):
 		self.animations = {}
+
 		for index, folder in enumerate(walk(path)):
 			if index == 0:
 				for name in folder[1]:
 					self.animations[name] = []
 			else:
-				for file_name in sorted(folder[2], key = lambda string: int(string.split('.')[0])):
-					path = folder[0].replace('\\', '/') + '/' + file_name
-					surf = pygame.image.load(path).convert_alpha()
-					key = folder[0].split('\\')[1]
+				for file_name in sorted(folder[2], key=lambda string: int(string.split('.')[0])):
+					file_path = folder[0].replace('\\', '/') + '/' + file_name
+					surf = pygame.image.load(file_path).convert_alpha()
+					key = folder[0].replace('\\', '/').split('/')[-1]
 					self.animations[key].append(surf)
