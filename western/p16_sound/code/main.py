@@ -11,7 +11,7 @@ class AllSprites(pygame.sprite.Group):
 		super().__init__()
 		self.offset = vector()
 		self.display_surface = pygame.display.get_surface()
-		self.bg = pygame.image.load('../graphics/other/bg.png').convert()
+		self.bg = pygame.image.load('./western_project_files/project_13 - finish/graphics/other/bg.png').convert()
 
 	def customize_draw(self,player):
 
