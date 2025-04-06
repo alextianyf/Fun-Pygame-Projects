@@ -6,14 +6,14 @@ display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('Meteor shooter')
 
 # importing images 
-ship_surf = pygame.image.load('../graphics/ship.png').convert_alpha()
+ship_surf = pygame.image.load('./asteroid_shooter_files/project_4 - Image Text/graphics/ship.png').convert_alpha()
 
 # exercise 
 # import the background and blit it on the display surface
-bg_surf = pygame.image.load('../graphics/background.png').convert()
+bg_surf = pygame.image.load('./asteroid_shooter_files/project_4 - Image Text/graphics/background.png').convert()
 
 # import text 
-font = pygame.font.Font('../graphics/subatomic.ttf', 50)
+font = pygame.font.Font('./asteroid_shooter_files/project_4 - Image Text/graphics/subatomic.ttf', 50)
 text_surf = font.render('Space', True, (255,255,255))
 
 while True: # run forever -> keeps our game running
