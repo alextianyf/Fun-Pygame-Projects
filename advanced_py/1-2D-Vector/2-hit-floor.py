@@ -72,7 +72,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.bottomleft = self.position
 
         # ------------------ 碰撞检测（垂直方向） ------------------
-        self.on_ground = False  # 每帧默认在空中
 
         for tile in all_tiles:
             if self.rect.colliderect(tile.rect):
@@ -85,7 +84,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = tile.rect.top  # 对齐地面
                     self.position.y = self.rect.bottom
                     self.velocity.y = 0
-                    self.on_ground = True  # 标记为着地
 
 # 创建所有精灵组
 all_tiles = pygame.sprite.Group()  # 所有 tile 的组
